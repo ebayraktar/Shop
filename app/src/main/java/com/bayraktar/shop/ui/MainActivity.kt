@@ -1,7 +1,8 @@
-package com.bayraktar.shop
+package com.bayraktar.shop.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.bayraktar.shop.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
