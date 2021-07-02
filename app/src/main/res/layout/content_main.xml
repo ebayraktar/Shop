@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="ui.MainActivity"
+    tools:showIn="@layout/activity_main">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="Popular Movies"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/progress_bar" />
+
+
+        <com.smarteist.autoimageslider.SliderView
+            android:id="@+id/imageSlider"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            app:sliderAnimationDuration="600"
+            app:sliderAutoCycleDirection="back_and_forth"
+            app:sliderAutoCycleEnabled="true"
+            app:sliderIndicatorAnimationDuration="600"
+            app:sliderIndicatorGravity="center_horizontal|bottom"
+            app:sliderIndicatorMargin="15dp"
+            app:sliderIndicatorOrientation="horizontal"
+            app:sliderIndicatorPadding="3dp"
+            app:sliderIndicatorRadius="2dp"
+            app:sliderIndicatorSelectedColor="#5A5A5A"
+            app:sliderIndicatorUnselectedColor="#FFF"
+            app:sliderScrollTimeInSec="2"
+            app:sliderStartAutoCycle="true" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:layout_constraintTop_toBottomOf="@id/imageSlider" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:indeterminate="true"
+            android:indeterminateBehavior="repeat"
+            android:indeterminateTint="?attr/colorPrimary"
+            android:scaleY="4"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/recyclerView">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pretty good, the Toolbar is moving along with the list and getting back just as we expect it to. This is thanks to the restrictions that we put on the mToolbarOffset variable.
+        If we would omit checking if it’s bigger than 0 and lower than mToolbarHeight then when
+        we would scroll
+         up our list, the Toolbar would move along far away off the screen, so to show it back you
+         would have to scroll the list down to 0. Right now it just scrolls up to mToolbarHeight
+         position and not more so it’s “sitting” right above the list all of the time and if we
+         start scrolling down, we can see it immediately showing.
+
+
+
+          up our list, the Toolbar would move along far away off the screen, so to show it back you
+         would have to scroll the list down to 0. Right now it just scrolls up to mToolbarHeight
+         position and not more so it’s “sitting” right above the list all of the time and if we
+         start scrolling down, we can see it immediately showing
+
+          up our list, the Toolbar would move along far away off the screen, so to show it back you
+         would have to scroll the list down to 0. Right now it just scrolls up to mToolbarHeight
+         position and not more so it’s “sitting” right above the list all of the time and if we
+         start scrolling down, we can see it immediately showing
+
+          up our list, the Toolbar would move along far away off the screen, so to show it back you
+         would have to scroll the list down to 0. Right now it just scrolls up to mToolbarHeight
+         position and not more so it’s “sitting” right above the list all of the time and if we
+         start scrolling down, we can see it immediately showing
+
+          up our list, the Toolbar would move along far away off the screen, so to show it back you
+         would have to scroll the list down to 0. Right now it just scrolls up to mToolbarHeight
+         position and not more so it’s “sitting” right above the list all of the time and if we
+         start scrolling down, we can see it immediately showing
+
+          up our list, the Toolbar would move along far away off the screen, so to show it back you
+         would have to scroll the list down to 0. Right now it just scrolls up to mToolbarHeight
+         position and not more so it’s “sitting” right above the list all of the time and if we
+         start scrolling down, we can see it immediately showing
+        It works pretty well, but this is not what we want. It feels weird that you can
+        stop it in the middle of
+        the
+
+         scroll and the Toolbar will stay half visible. Actually this is how it’s done in Google Play
+         Games app
+        which I consider as a bug
+
+        It works pretty well, but this is not what we want. It feels weird that you can
+        stop it in the middle of
+        the
+         scroll and the Toolbar will stay half visible. Actually this is how it’s done in Google Play
+         Games app
+        which I consider as a bug
+        It works pretty well, but this is not what we want. It feels weird that you can
+        stop it in the middle of
+        the
+         scroll and the Toolbar will stay half visible. Actually this is how it’s done in Google Play
+         Games app
+        which I consider as a bug" />
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
