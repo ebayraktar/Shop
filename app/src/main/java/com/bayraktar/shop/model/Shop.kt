@@ -1,6 +1,7 @@
 package com.bayraktar.shop.model
 
 import android.os.Parcelable
+import com.bayraktar.shop.model.base.BaseList
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
@@ -9,54 +10,57 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Shop(
     @SerializedName("id")
-    @Expose val id: Number,
+    @Expose val id: Int?,
 
     @SerializedName("name")
-    @Expose val name: String,
+    @Expose val name: String?,
 
     @SerializedName("slug")
-    @Expose val slug: String,
+    @Expose val slug: String?,
 
     @SerializedName("definition")
-    @Expose val definition: String,
+    @Expose val definition: String?,
 
     @SerializedName("name_updateable")
-    @Expose val name_updatable: Boolean,
+    @Expose val name_updatable: Boolean?,
 
     @SerializedName("vacation_mode")
-    @Expose val vacationMode: Number,
+    @Expose val vacationMode: Int?,
 
     @SerializedName("created_at")
-    @Expose val createdAt: String,
+    @Expose val createdAt: String?,
 
     @SerializedName("shop_payment_id")
-    @Expose val shopPaymentId: Number,
+    @Expose val shopPaymentId: Int?,
 
     @SerializedName("product_count")
-    @Expose val productCount: Number,
+    @Expose val productCount: Int?,
 
     @SerializedName("shop_rate")
-    @Expose val shopRate: Number,
+    @Expose val shopRate: Int?,
 
     @SerializedName("comment_count")
-    @Expose val commentCount: Number,
+    @Expose val commentCount: Int?,
 
     @SerializedName("follower_count")
-    @Expose val followerCount: Number,
+    @Expose val followerCount: Int?,
 
     @SerializedName("is_editor_choice")
-    @Expose val isEditorChoice: Boolean,
+    @Expose val isEditorChoice: Boolean?,
 
     @SerializedName("is_following")
-    @Expose val isFollowing: Boolean,
+    @Expose val isFollowing: Boolean?,
 
     @SerializedName("cover")
-    @Expose val cover: Cover,
+    @Expose val cover: Cover?,
 
     @SerializedName("share_url")
-    @Expose val shareUrl: String,
+    @Expose val shareUrl: String?,
 
     @SerializedName("logo")
-    @Expose val logo: Logo,
+    @Expose val logo: Logo?,
 
-    ) : Parcelable
+    @SerializedName("popular_products")
+    @Expose val popularProducts: List<Product>?,
+
+    ) : Parcelable, BaseList

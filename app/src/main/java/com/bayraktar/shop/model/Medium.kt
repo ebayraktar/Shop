@@ -8,12 +8,12 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Medium(
     @SerializedName("width")
-    @Expose val width: Number,
+    @Expose val width: Int?,
 
     @SerializedName("height")
-    @Expose val height: Number,
+    @Expose val height: Int?,
 
     @SerializedName("url")
-    @Expose val url: String,
+    @Expose val url: String?,
 
     ) : Parcelable

@@ -1,6 +1,7 @@
 package com.bayraktar.shop.model
 
 import android.os.Parcelable
+import com.bayraktar.shop.model.base.BaseList
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
@@ -8,19 +9,19 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Featured(
     @SerializedName("id")
-    @Expose val id: String,
+    @Expose val id: String?,
 
     @SerializedName("type")
-    @Expose val type: String,
+    @Expose val type: String?,
 
     @SerializedName("cover")
-    @Expose val cover: Cover,
+    @Expose val cover: Cover?,
 
     @SerializedName("title")
-    @Expose val title: String,
+    @Expose val title: String?,
 
     @SerializedName("sub_title")
-    @Expose val subTitle: String,
+    @Expose val subTitle: String?,
 
 
-    ) : Parcelable
+    ) : Parcelable, BaseList
