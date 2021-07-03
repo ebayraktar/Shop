@@ -1,31 +1,40 @@
-package com.bayraktar.shop.ui
+package com.bayraktar.shop.ui.fragment
 
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
 import android.view.animation.AnimationUtils
+import androidx.core.content.ContextCompat
+import com.bayraktar.shop.ARG_LIST
+import com.bayraktar.shop.ARG_TITLE
 import com.bayraktar.shop.App
 import com.bayraktar.shop.R
-import com.bayraktar.shop.adapter.ProductAdapter
-import com.bayraktar.shop.ui.base.ARG_LIST
-import com.bayraktar.shop.ui.base.ARG_TITLE
+import com.bayraktar.shop.adapter.CategoryAdapter
 import com.bayraktar.shop.ui.base.BaseListFragment
 import kotlinx.android.synthetic.main.fragment_base_list.*
 import kotlinx.android.synthetic.main.item_header.*
 
-class ProductFragment : BaseListFragment() {
-    private lateinit var productAdapter: ProductAdapter
+class CategoryFragment : BaseListFragment() {
+    private lateinit var categoryAdapter: CategoryAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         tvItemTitle.text = title
+        tvAllItems.visibility = View.INVISIBLE
+        context?.let {
+            clRoot.setBackgroundColor(
+                ContextCompat.getColor(
+                    it,
+                    R.color.background_category
+                )
+            )
+        }
 
         val animation = AnimationUtils.loadAnimation(context, R.anim.left_to_right)
+        categoryAdapter = CategoryAdapter(App.SCREEN_SIZE, animation)
+        rvItems.adapter = categoryAdapter
 
-        productAdapter = ProductAdapter(App.SCREEN_SIZE, animation)
-        rvItems.adapter = productAdapter
-
-        productAdapter.renewItems(list)
+        categoryAdapter.setItems(list)
     }
 
     companion object {
@@ -40,15 +49,17 @@ class ProductFragment : BaseListFragment() {
 
         @JvmStatic
         fun newInstance(categoryList: List<Parcelable>, title: String) =
-            ProductFragment().apply {
+            CategoryFragment().apply {
                 val arrayList: ArrayList<out Parcelable?> = if (categoryList is ArrayList) {
                     categoryList
                 } else {
                     ArrayList(categoryList)
                 }
+
                 arguments = Bundle().apply {
                     putParcelableArrayList(ARG_LIST, arrayList)
                     putString(ARG_TITLE, title)
+
                 }
             }
     }

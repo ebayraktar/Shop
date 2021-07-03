@@ -14,13 +14,16 @@ import androidx.appcompat.widget.SearchView
 import com.bayraktar.shop.App
 import com.bayraktar.shop.R
 import com.bayraktar.shop.adapter.HomeSliderAdapter
-import com.bayraktar.shop.model.Category
-import com.bayraktar.shop.model.Collection
+import com.bayraktar.shop.enums.ModelType
+import com.bayraktar.shop.enums.ShopType
 import com.bayraktar.shop.model.MobileResponse
-import com.bayraktar.shop.model.ModelType
 import com.bayraktar.shop.model.base.BaseList
 import com.bayraktar.shop.model.base.BaseType
 import com.bayraktar.shop.network.ServiceBuilder
+import com.bayraktar.shop.ui.fragment.CategoryFragment
+import com.bayraktar.shop.ui.fragment.CollectionFragment
+import com.bayraktar.shop.ui.fragment.ProductFragment
+import com.bayraktar.shop.ui.fragment.ShopFragment
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import com.smarteist.autoimageslider.SliderAnimations
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -35,6 +38,7 @@ import kotlin.collections.ArrayList
 class MainActivity : AppCompatActivity() {
     lateinit var searchView: SearchView
     lateinit var homeSliderAdapter: HomeSliderAdapter
+    private val compositeDisposable = CompositeDisposable()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -47,7 +51,14 @@ class MainActivity : AppCompatActivity() {
         imageSlider.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION)
         imageSlider.setSliderAdapter(homeSliderAdapter)
 
-        val compositeDisposable = CompositeDisposable()
+        srLayout.setOnRefreshListener {
+            discover()
+        }
+
+        discover()
+    }
+
+    private fun discover() {
         compositeDisposable.add(
             ServiceBuilder.buildService().getDiscover()
                 .observeOn(AndroidSchedulers.mainThread())
@@ -56,6 +67,15 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    override fun onStop() {
+        super.onStop()
+        compositeDisposable.clear()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        compositeDisposable.dispose()
+    }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
@@ -83,11 +103,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onFailure(t: Throwable) {
+        srLayout.isRefreshing = false
         Toast.makeText(this, t.message, Toast.LENGTH_SHORT).show()
     }
 
     private fun onResponse(response: List<MobileResponse>) {
-        Log.d("TAG", "onResponse: ${response.size}")
+        srLayout.isRefreshing = false
 
         progress_bar.visibility = View.GONE
 
@@ -95,8 +116,10 @@ class MainActivity : AppCompatActivity() {
         val products = getItems(response, ModelType.NEW_PRODUCTS)
         val categories = getItems(response, ModelType.CATEGORIES)
         val collections = getItems(response, ModelType.COLLECTIONS)
+        val editorShops = getItems(response, ModelType.EDITOR_SHOPS)
+        val newShops = getItems(response, ModelType.NEW_SHOPS)
 
-        homeSliderAdapter.renewItems(featured.list as List<BaseList>)
+        homeSliderAdapter.setItems(featured.list as List<BaseList>)
 
 
         val fragmentTransaction = supportFragmentManager.beginTransaction()
@@ -111,6 +134,14 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.replace(
             R.id.flCollections,
             CollectionFragment.newInstance(collections.list, collections.title)
+        )
+        fragmentTransaction.replace(
+            R.id.flEditorShops,
+            ShopFragment.newInstance(editorShops.list, editorShops.title, ShopType.EDITOR_SHOP)
+        )
+        fragmentTransaction.replace(
+            R.id.flNewShops,
+            ShopFragment.newInstance(newShops.list, newShops.title, ShopType.NEW_SHOP)
         )
 
         fragmentTransaction.commit()
@@ -137,7 +168,13 @@ class MainActivity : AppCompatActivity() {
                     title = result?.title ?: "UNKNOWN TITLE"
                 )
             }
-            ModelType.SHOPS -> {
+            ModelType.EDITOR_SHOPS -> {
+                BaseType(
+                    list = result?.shops ?: ArrayList(),
+                    title = result?.title ?: "UNKNOWN TITLE"
+                )
+            }
+            ModelType.NEW_SHOPS -> {
                 BaseType(
                     list = result?.shops ?: ArrayList(),
                     title = result?.title ?: "UNKNOWN TITLE"

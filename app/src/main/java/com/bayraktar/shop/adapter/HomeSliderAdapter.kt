@@ -21,7 +21,7 @@ class HomeSliderAdapter(private val screenSize: Int) :
         this.listener = listener
     }
 
-    fun renewItems(sliderItems: List<BaseList>) {
+    fun setItems(sliderItems: List<BaseList>) {
         mSliderItems = if (sliderItems.firstOrNull() is Featured)
             sliderItems as MutableList<Featured>
         else

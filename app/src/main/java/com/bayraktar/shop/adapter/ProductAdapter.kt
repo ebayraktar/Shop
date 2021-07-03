@@ -27,7 +27,7 @@ class ProductAdapter(private val screenSize: Int, private val animation: Animati
         this.listener = listener
     }
 
-    fun renewItems(products: List<BaseList>?) {
+    fun setItems(products: List<BaseList>?) {
         mProducts = if (products?.firstOrNull() is Product)
             products as MutableList<Product>
         else

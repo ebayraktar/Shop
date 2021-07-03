@@ -6,11 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bayraktar.shop.ARG_LIST
+import com.bayraktar.shop.ARG_TITLE
 import com.bayraktar.shop.R
 import com.bayraktar.shop.model.base.BaseList
 
-const val ARG_LIST = "LIST_KEY"
-const val ARG_TITLE = "TITLE_KEY"
 
 /**
  * A simple [Fragment] subclass.

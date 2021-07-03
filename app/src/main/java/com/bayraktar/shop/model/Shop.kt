@@ -60,4 +60,7 @@ data class Shop(
     @SerializedName("logo")
     @Expose val logo: Logo?,
 
+    @SerializedName("popular_products")
+    @Expose val popularProducts: List<Product>?,
+
     ) : Parcelable, BaseList

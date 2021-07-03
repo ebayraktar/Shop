@@ -19,7 +19,7 @@
 
     <style name="TextTitle" parent="Widget.MaterialComponents.TextView">
         <item name="android:textSize">24sp</item>
-        <item name="android:textColor">@color/grey_light</item>
+        <item name="android:textColor">@color/gray_light</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:shadowColor">@color/black</item>
@@ -43,7 +43,7 @@
 
     <style name="TextCategoryTitle" parent="Widget.MaterialComponents.TextView">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/grey</item>
+        <item name="android:textColor">@color/gray</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:shadowDx">1.0</item>
         <item name="android:shadowDy">1.0</item>
@@ -73,7 +73,7 @@
 
     <style name="TextProductPrice" parent="Widget.MaterialComponents.TextView">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/grey</item>
+        <item name="android:textColor">@color/gray</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:shadowDx">1.0</item>
         <item name="android:shadowDy">1.0</item>
@@ -83,7 +83,7 @@
 
     <style name="TextProductOldPrice" parent="TextProductPrice">
         <item name="android:textSize">13sp</item>
-        <item name="android:textColor">@color/grey_light_50</item>
+        <item name="android:textColor">@color/gray_light_50</item>
     </style>
 
 </resources>

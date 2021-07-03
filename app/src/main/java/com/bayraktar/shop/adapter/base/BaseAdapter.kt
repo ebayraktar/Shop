@@ -12,7 +12,7 @@ abstract class BaseAdapter<V> : RecyclerView.Adapter<V>() where  V : RecyclerVie
         this.listener = listener
     }
 
-    fun renewItems(list: List<BaseList>?) {
+    fun setItems(list: List<BaseList>?) {
         mutableList = (list ?: ArrayList()) as MutableList<BaseList>
         notifyDataSetChanged()
     }
