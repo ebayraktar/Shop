@@ -1,5 +1,5 @@
 package com.bayraktar.shop.interfaces
 
-interface ISliderOnClickListener {
+interface ISliderListener {
     fun onClick(id: String)
 }

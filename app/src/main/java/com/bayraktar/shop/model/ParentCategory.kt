@@ -1,13 +1,12 @@
 package com.bayraktar.shop.model
 
 import android.os.Parcelable
-import com.bayraktar.shop.model.base.BaseList
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Category(
+data class ParentCategory(
     @SerializedName("id")
     @Expose val id: Int?,
 
@@ -23,9 +22,4 @@ data class Category(
     @SerializedName("parent_category")
     @Expose val parentCategory: ParentCategory?,
 
-    @SerializedName("logo")
-    @Expose val logo: Logo?,
-
-    @SerializedName("cover")
-    @Expose val cover: Cover?,
-) : Parcelable, BaseList
+    ) : Parcelable

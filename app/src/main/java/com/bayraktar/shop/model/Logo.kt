@@ -8,18 +8,18 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Logo(
     @SerializedName("width")
-    @Expose val width: Number,
+    @Expose val width: Int?,
 
     @SerializedName("height")
-    @Expose val height: Number,
+    @Expose val height: Int?,
 
     @SerializedName("url")
-    @Expose val url: String,
+    @Expose val url: String?,
 
     @SerializedName("medium")
-    @Expose val medium: Medium,
+    @Expose val medium: Medium?,
 
     @SerializedName("thumbnail")
-    @Expose val thumbnail: Thumbnail,
+    @Expose val thumbnail: Thumbnail?,
 
     ) : Parcelable
