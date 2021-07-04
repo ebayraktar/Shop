@@ -4,6 +4,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bayraktar.shop.interfaces.IBaseListener
 import com.bayraktar.shop.model.base.BaseList
 
+/**
+ * This is the base adapter to do base operations.
+ */
 abstract class BaseAdapter<V> : RecyclerView.Adapter<V>() where  V : RecyclerView.ViewHolder {
     protected var mutableList: MutableList<BaseList> = ArrayList()
     protected var listener: IBaseListener? = null

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import com.bayraktar.shop.ARG_SHOP
 import com.bayraktar.shop.ARG_SHOP_TYPE
@@ -52,6 +53,8 @@ open class ItemShopFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val animation = AnimationUtils.loadAnimation(context, R.anim.left_to_right)
+        view.startAnimation(animation)
 
         when (shopType) {
             ShopType.EDITOR_SHOP ->

@@ -62,7 +62,7 @@ class CategoryAdapter(private val screenSize: Int, private val animation: Animat
         val tvCategoryTitle: TextView = view.findViewById(R.id.tvCategoryTitle)
 
         init {
-            view.setOnClickListener { listener!!.onClick(adapterPosition) }
+            view.setOnClickListener { listener?.onClick(adapterPosition) }
             // Define click listener for the ViewHolder's View.
         }
     }

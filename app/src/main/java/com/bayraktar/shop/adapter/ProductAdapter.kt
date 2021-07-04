@@ -110,7 +110,7 @@ class ProductAdapter(private val screenSize: Int, private val animation: Animati
         val tvProductOldPrice: TextView = view.findViewById(R.id.tvProductOldPrice)
 
         init {
-            view.setOnClickListener { listener!!.onClick(adapterPosition) }
+            view.setOnClickListener { listener?.onClick(adapterPosition) }
             // Define click listener for the ViewHolder's View.
         }
     }

@@ -15,4 +15,6 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.DayNight.ActionBar" />
+
+    <!-- Customize texts or other stuff if you want. -->
 </resources>

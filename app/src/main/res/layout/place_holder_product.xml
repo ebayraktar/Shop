@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/product_item_width"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/product_item_horizontal_margin"
+    android:layout_marginVertical="@dimen/product_item_vertical_margin"
+    android:padding="@dimen/default_margin"
+    app:cardCornerRadius="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/vProduct"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/product_image_height"
+            android:background="@color/gray_light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/vProductTitle"
+            android:layout_width="128dp"
+            android:layout_height="@dimen/placeholderTextHeight"
+            android:layout_marginTop="@dimen/default_margin"
+            android:background="@color/gray_light"
+            android:paddingHorizontal="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/vProduct" />
+
+        <View
+            android:id="@+id/vProductSubtitle"
+            android:layout_width="96dp"
+            android:layout_height="@dimen/placeholderTextHeight"
+            android:layout_marginTop="@dimen/subtitle_margin"
+            android:background="@color/gray_light"
+            android:paddingHorizontal="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/vProductTitle" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@color/gray_light"
+            android:orientation="horizontal"
+            android:padding="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/vProductSubtitle">
+
+            <View
+                android:id="@+id/tvProductPrice"
+                style="@style/TextProductPrice"
+                android:layout_width="54dp"
+                android:layout_height="30dp"
+                android:background="@color/gray_light_50" />
+
+            <View
+                android:id="@+id/tvProductOldPrice"
+                style="@style/TextProductOldPrice"
+                android:layout_width="54dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="@dimen/default_margin"
+                android:background="@color/gray_light_50" />
+
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.item_header.*
 
 class ShopFragment : BaseListFragment() {
     private lateinit var shopAdapter: ShopPagerAdapter
-    private lateinit var shopType: ShopType
+    private var shopType: ShopType? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -39,30 +39,23 @@ class ShopFragment : BaseListFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
+        if (shopType == null) {
+            return
+        }
 
         if (shopType == ShopType.EDITOR_SHOP) {
-            context?.let { _it ->
-                tvItemTitle.setTextColor(
-                    ContextCompat.getColor(
-                        _it,
-                        R.color.white
-                    )
-                )
-
-                tvAllItems.setTextColor(
-                    ContextCompat.getColor(
-                        _it,
-                        R.color.white
-                    )
-                )
-                clRoot.setBackgroundColor(ContextCompat.getColor(_it, R.color.black))
-            }
+            editorShopAction()
         }
+
         tvItemTitle.text = title
 
-        shopAdapter = ShopPagerAdapter(this, list as List<Shop>, shopType)
+        shopAdapter = ShopPagerAdapter(this, list as List<Shop>, shopType!!)
         vpEditorShops.adapter = shopAdapter
+
+        vpEditorShops.offscreenPageLimit = 2
+
         vpEditorShops.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             //override method(s) what you need it
             override fun onPageScrolled(
@@ -75,27 +68,52 @@ class ShopFragment : BaseListFragment() {
 
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                if (shopType == ShopType.EDITOR_SHOP) {
-                    val newUrl = when (App.SCREEN_SIZE) {
-                        Configuration.SCREENLAYOUT_SIZE_LARGE -> (list?.get(position) as Shop).cover?.url
-                        Configuration.SCREENLAYOUT_SIZE_NORMAL -> (list?.get(position) as Shop).cover?.medium?.url
-                        Configuration.SCREENLAYOUT_SIZE_SMALL -> (list?.get(position) as Shop).cover?.thumbnail?.url
-                        else -> null
-                    }
-
-                    Glide.with(view)
-                        .load(newUrl)
-                        .fitCenter()
-                        .placeholder(R.drawable.ic_launcher_foreground)
-                        .error(R.drawable.ic_broken_image_24)
-                        .into(ivBackground)
-                }
+                backgroundImageOperation(position)
             }
 
             override fun onPageScrollStateChanged(state: Int) {
                 super.onPageScrollStateChanged(state)
             }
         })
+    }
+
+    private fun editorShopAction() {
+        context?.let { _it ->
+            tvItemTitle.setTextColor(
+                ContextCompat.getColor(
+                    _it,
+                    R.color.white
+                )
+            )
+
+            tvAllItems.setTextColor(
+                ContextCompat.getColor(
+                    _it,
+                    R.color.white
+                )
+            )
+            clRoot.setBackgroundColor(ContextCompat.getColor(_it, R.color.black))
+        }
+    }
+
+    private fun backgroundImageOperation(position: Int) {
+        if (shopType == ShopType.EDITOR_SHOP) {
+            val newUrl = when (App.SCREEN_SIZE) {
+                Configuration.SCREENLAYOUT_SIZE_LARGE -> (list?.get(position) as Shop).cover?.url
+                Configuration.SCREENLAYOUT_SIZE_NORMAL -> (list?.get(position) as Shop).cover?.medium?.url
+                Configuration.SCREENLAYOUT_SIZE_SMALL -> (list?.get(position) as Shop).cover?.thumbnail?.url
+                else -> null
+            }
+
+            context?.let {
+                Glide.with(it)
+                    .load(newUrl)
+                    .fitCenter()
+                    .placeholder(R.drawable.ic_launcher_foreground)
+                    .error(R.drawable.ic_broken_image_24)
+                    .into(ivBackground)
+            }
+        }
     }
 
 
