@@ -10,40 +10,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bayraktar.shop.R
-import com.bayraktar.shop.interfaces.IProductListener
+import com.bayraktar.shop.adapter.base.BaseAdapter
+import com.bayraktar.shop.interfaces.IBaseListener
 import com.bayraktar.shop.model.Product
-import com.bayraktar.shop.model.base.BaseList
 import com.bumptech.glide.Glide
 import java.util.*
 
 
 class ProductAdapter(private val screenSize: Int, private val animation: Animation) :
-    RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
-    private var mProducts: MutableList<Product> = ArrayList()
-
-    private var listener: IProductListener? = null
-
-    fun setOnClickListener(listener: IProductListener?) {
-        this.listener = listener
-    }
-
-    fun setItems(products: List<BaseList>?) {
-        mProducts = if (products?.firstOrNull() is Product)
-            products as MutableList<Product>
-        else
-            ArrayList()
-        notifyDataSetChanged()
-    }
-
-    fun deleteItem(position: Int) {
-        mProducts.removeAt(position)
-        notifyItemRemoved(position)
-    }
-
-    fun addItem(sliderItem: Product) {
-        mProducts.add(sliderItem)
-        notifyItemInserted(itemCount)
-    }
+    BaseAdapter<ProductAdapter.ViewHolder>() {
 
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
@@ -60,7 +35,7 @@ class ProductAdapter(private val screenSize: Int, private val animation: Animati
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        val product = mProducts[position]
+        val product = mutableList[position] as Product
 
         val imageUrl = when (screenSize) {
             Configuration.SCREENLAYOUT_SIZE_LARGE -> product.images?.firstOrNull()?.url
@@ -96,13 +71,13 @@ class ProductAdapter(private val screenSize: Int, private val animation: Animati
     }
 
     // Return the size of your dataset (invoked by the layout manager)
-    override fun getItemCount() = mProducts.size
+    override fun getItemCount() = mutableList.size
 
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
-    class ViewHolder(view: View, listener: IProductListener?) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View, listener: IBaseListener?) : RecyclerView.ViewHolder(view) {
         val ivProduct: ImageView = view.findViewById(R.id.ivProduct)
         val tvProductTitle: TextView = view.findViewById(R.id.tvProductTitle)
         val tvProductSubtitle: TextView = view.findViewById(R.id.tvProductSubtitle)

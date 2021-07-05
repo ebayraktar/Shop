@@ -17,7 +17,7 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_shop.*
 import kotlinx.android.synthetic.main.item_header.*
 
-class ShopFragment : BaseListFragment() {
+class ShopFragment : BaseListFragment<Shop>() {
     private lateinit var shopAdapter: ShopPagerAdapter
     private var shopType: ShopType? = null
     override fun onCreate(savedInstanceState: Bundle?) {

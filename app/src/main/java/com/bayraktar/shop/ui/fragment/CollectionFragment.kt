@@ -4,16 +4,20 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import com.bayraktar.shop.ARG_LIST
 import com.bayraktar.shop.ARG_TITLE
 import com.bayraktar.shop.App
 import com.bayraktar.shop.R
 import com.bayraktar.shop.adapter.CollectionAdapter
+import com.bayraktar.shop.interfaces.IBaseListener
+import com.bayraktar.shop.model.Category
+import com.bayraktar.shop.model.Collection
 import com.bayraktar.shop.ui.base.BaseListFragment
 import kotlinx.android.synthetic.main.fragment_base_list.*
 import kotlinx.android.synthetic.main.item_header.*
 
-class CollectionFragment : BaseListFragment() {
+class CollectionFragment : BaseListFragment<Collection>() {
     private lateinit var collectionAdapter: CollectionAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -22,6 +26,7 @@ class CollectionFragment : BaseListFragment() {
 
         val animation = AnimationUtils.loadAnimation(context, R.anim.left_to_right)
         collectionAdapter = CollectionAdapter(App.SCREEN_SIZE, animation)
+        collectionAdapter.setOnClickListener(this)
         rvItems.adapter = collectionAdapter
 
         collectionAdapter.setItems(list)
@@ -52,6 +57,14 @@ class CollectionFragment : BaseListFragment() {
 
                 }
             }
+    }
+
+    override fun onClick(index: Int) {
+        Toast.makeText(
+            context,
+            "${(list?.get(index) as Collection).title ?: "Unknown Category"}",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
 }

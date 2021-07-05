@@ -57,7 +57,8 @@ class CategoryAdapter(private val screenSize: Int, private val animation: Animat
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
-    class ViewHolder(view: View, listener: IBaseListener?) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View, listener: IBaseListener?) :
+        RecyclerView.ViewHolder(view) {
         val ivCategory: ImageView = view.findViewById(R.id.ivCategory)
         val tvCategoryTitle: TextView = view.findViewById(R.id.tvCategoryTitle)
 

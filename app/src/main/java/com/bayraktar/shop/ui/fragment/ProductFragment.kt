@@ -4,16 +4,19 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import com.bayraktar.shop.ARG_LIST
 import com.bayraktar.shop.ARG_TITLE
 import com.bayraktar.shop.App
 import com.bayraktar.shop.R
 import com.bayraktar.shop.adapter.ProductAdapter
+import com.bayraktar.shop.model.Category
+import com.bayraktar.shop.model.Product
 import com.bayraktar.shop.ui.base.BaseListFragment
 import kotlinx.android.synthetic.main.fragment_base_list.*
 import kotlinx.android.synthetic.main.item_header.*
 
-class ProductFragment : BaseListFragment() {
+class ProductFragment : BaseListFragment<Product>() {
     private lateinit var productAdapter: ProductAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -23,6 +26,7 @@ class ProductFragment : BaseListFragment() {
         val animation = AnimationUtils.loadAnimation(context, R.anim.left_to_right)
 
         productAdapter = ProductAdapter(App.SCREEN_SIZE, animation)
+        productAdapter.setOnClickListener(this)
         rvItems.adapter = productAdapter
 
         productAdapter.setItems(list)
