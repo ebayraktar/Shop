@@ -2,81 +2,108 @@
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/srLayout"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="ui.MainActivity"
     tools:showIn="@layout/activity_main">
 
-        <androidx.core.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+
+            <com.smarteist.autoimageslider.SliderView
+                android:id="@+id/imageSlider"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="@dimen/image_slider_height"
+                app:layout_constraintTop_toTopOf="parent"
+                app:sliderAutoCycleDirection="back_and_forth"
+                app:sliderIndicatorAnimationDuration="600"
+                app:sliderIndicatorEnabled="true"
+                app:sliderIndicatorOrientation="horizontal"
+                app:sliderIndicatorSelectedColor="@color/white"
+                app:sliderIndicatorUnselectedColor="@color/gray_light" />
+
+            <!-- Slider shimmer -->
+            <include
+                android:id="@+id/shimmerSlider"
+                layout="@layout/shimmer_slider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/image_slider_height"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <FrameLayout
+                android:id="@+id/flProducts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/default_margin"
+                app:layout_constraintTop_toBottomOf="@id/imageSlider" />
+
+            <!-- Product list shimmer -->
+            <include
+                android:id="@+id/shimmerProducts"
+                layout="@layout/shimmer_product_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/default_margin"
+                app:layout_constraintTop_toBottomOf="@id/shimmerSlider" />
+
+            <FrameLayout
+                android:id="@+id/flCategories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/default_margin"
+                app:layout_constraintTop_toBottomOf="@id/flProducts" />
 
 
-                <com.smarteist.autoimageslider.SliderView
-                    android:id="@+id/imageSlider"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/image_slider_height"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:sliderAutoCycleDirection="back_and_forth"
-                    app:sliderIndicatorAnimationDuration="600"
-                    app:sliderIndicatorEnabled="true"
-                    app:sliderIndicatorOrientation="horizontal"
-                    app:sliderIndicatorSelectedColor="@color/white"
-                    app:sliderIndicatorUnselectedColor="@color/gray_light" />
+            <!-- Category list shimmer -->
+            <include
+                android:id="@+id/shimmerCategories"
+                layout="@layout/shimmer_category_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/default_margin"
+                app:layout_constraintTop_toBottomOf="@id/shimmerProducts" />
 
-                <FrameLayout
-                    android:id="@+id/flProducts"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/default_margin"
-                    app:layout_constraintTop_toBottomOf="@id/imageSlider" />
+            <FrameLayout
+                android:id="@+id/flCollections"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/default_margin"
+                app:layout_constraintTop_toBottomOf="@id/flCategories" />
 
-                <FrameLayout
-                    android:id="@+id/flCategories"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/default_margin"
-                    app:layout_constraintTop_toBottomOf="@id/flProducts" />
+            <FrameLayout
+                android:id="@+id/flEditorShops"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/default_margin"
+                app:layout_constraintTop_toBottomOf="@id/flCollections" />
 
-                <FrameLayout
-                    android:id="@+id/flCollections"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/default_margin"
-                    app:layout_constraintTop_toBottomOf="@id/flCategories" />
+            <FrameLayout
+                android:id="@+id/flNewShops"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/default_margin"
+                app:layout_constraintTop_toBottomOf="@id/flEditorShops" />
 
-                <FrameLayout
-                    android:id="@+id/flEditorShops"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/default_margin"
-                    app:layout_constraintTop_toBottomOf="@id/flCollections" />
-
-                <FrameLayout
-                    android:id="@+id/flNewShops"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/default_margin"
-                    app:layout_constraintTop_toBottomOf="@id/flEditorShops" />
-
-                <ProgressBar
-                    android:id="@+id/progress_bar"
-                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="5dp"
-                    android:indeterminate="true"
-                    android:indeterminateBehavior="repeat"
-                    android:indeterminateTint="?attr/colorPrimary"
-                    android:scaleY="4"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:indeterminate="true"
+                android:indeterminateBehavior="repeat"
+                android:indeterminateTint="?attr/colorPrimary"
+                android:scaleY="4"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.core.widget.NestedScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

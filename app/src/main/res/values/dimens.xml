@@ -17,4 +17,9 @@
     <dimen name="collection_item_horizontal_margin">8dp</dimen>
     <dimen name="collection_item_vertical_margin">4dp</dimen>
     <dimen name="default_radius">8dp</dimen>
+
+    <dimen name="activityPadding">16dp</dimen>
+    <dimen name="placeholderImage">60dp</dimen>
+    <dimen name="placeholderTextHeight">15sp</dimen>
+    <dimen name="padding_10">10dp</dimen>
 </resources>

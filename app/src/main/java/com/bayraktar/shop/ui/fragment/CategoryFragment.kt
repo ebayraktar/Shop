@@ -4,17 +4,20 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.bayraktar.shop.ARG_LIST
 import com.bayraktar.shop.ARG_TITLE
 import com.bayraktar.shop.App
 import com.bayraktar.shop.R
 import com.bayraktar.shop.adapter.CategoryAdapter
+import com.bayraktar.shop.interfaces.IBaseListener
+import com.bayraktar.shop.model.Category
 import com.bayraktar.shop.ui.base.BaseListFragment
 import kotlinx.android.synthetic.main.fragment_base_list.*
 import kotlinx.android.synthetic.main.item_header.*
 
-class CategoryFragment : BaseListFragment() {
+class CategoryFragment : BaseListFragment<Category>() {
     private lateinit var categoryAdapter: CategoryAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -32,6 +35,7 @@ class CategoryFragment : BaseListFragment() {
 
         val animation = AnimationUtils.loadAnimation(context, R.anim.left_to_right)
         categoryAdapter = CategoryAdapter(App.SCREEN_SIZE, animation)
+        categoryAdapter.setOnClickListener(this)
         rvItems.adapter = categoryAdapter
 
         categoryAdapter.setItems(list)
@@ -63,4 +67,5 @@ class CategoryFragment : BaseListFragment() {
                 }
             }
     }
+
 }

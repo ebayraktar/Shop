@@ -55,7 +55,7 @@ class CollectionAdapter(private val screenSize: Int, private val animation: Anim
     }
 
     /**
-     * Provide a reference to the type of views that you are using
+     * Provides a reference to the type of views that we are using
      * (custom ViewHolder).
      */
     class ViewHolder(view: View, listener: IBaseListener?) : RecyclerView.ViewHolder(view) {
@@ -64,7 +64,7 @@ class CollectionAdapter(private val screenSize: Int, private val animation: Anim
         val tvCollectionSubtitle: TextView = view.findViewById(R.id.tvCollectionSubtitle)
 
         init {
-            view.setOnClickListener { listener!!.onClick(adapterPosition) }
+            view.setOnClickListener { listener?.onClick(adapterPosition) }
             // Define click listener for the ViewHolder's View.
         }
     }

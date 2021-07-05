@@ -4,7 +4,6 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -36,8 +35,8 @@ import kotlin.collections.ArrayList
 
 
 class MainActivity : AppCompatActivity() {
-    lateinit var searchView: SearchView
-    lateinit var homeSliderAdapter: HomeSliderAdapter
+    private lateinit var searchView: SearchView
+    private lateinit var homeSliderAdapter: HomeSliderAdapter
     private val compositeDisposable = CompositeDisposable()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +51,7 @@ class MainActivity : AppCompatActivity() {
         imageSlider.setSliderAdapter(homeSliderAdapter)
 
         srLayout.setOnRefreshListener {
+            srLayout.isRefreshing = false
             discover()
         }
 
@@ -59,12 +59,49 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun discover() {
+        emptyState(true)
         compositeDisposable.add(
             ServiceBuilder.buildService().getDiscover()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe({ response -> onResponse(response) }, { t -> onFailure(t) })
         )
+    }
+
+    private fun emptyState(isVisible: Boolean) {
+        val visibility = when (isVisible) {
+            true -> View.VISIBLE
+            false -> View.GONE
+        }
+
+        progress_bar.visibility = visibility
+
+//        srLayout.isRefreshing = isVisible
+
+        //slider Shimmer
+        shimmerSlider.visibility = visibility
+
+        //Empty product
+        shimmerProducts.visibility = visibility
+
+        //Empty category
+        shimmerCategories.visibility = visibility
+
+        hideFragments(!isVisible)
+    }
+
+    private fun hideFragments(isVisible: Boolean) {
+        val visibility = when (isVisible) {
+            true -> View.VISIBLE
+            false -> View.GONE
+        }
+
+        imageSlider.visibility = visibility
+        flProducts.visibility = visibility
+        flCategories.visibility = visibility
+        flCollections.visibility = visibility
+        flEditorShops.visibility = visibility
+        flNewShops.visibility = visibility
     }
 
     override fun onStop() {
@@ -103,14 +140,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onFailure(t: Throwable) {
-        srLayout.isRefreshing = false
+        emptyState(false)
         Toast.makeText(this, t.message, Toast.LENGTH_SHORT).show()
     }
 
     private fun onResponse(response: List<MobileResponse>) {
-        srLayout.isRefreshing = false
-
-        progress_bar.visibility = View.GONE
+        emptyState(false)
 
         val featured = getItems(response, ModelType.FEATURED)
         val products = getItems(response, ModelType.NEW_PRODUCTS)
@@ -118,6 +153,7 @@ class MainActivity : AppCompatActivity() {
         val collections = getItems(response, ModelType.COLLECTIONS)
         val editorShops = getItems(response, ModelType.EDITOR_SHOPS)
         val newShops = getItems(response, ModelType.NEW_SHOPS)
+
 
         homeSliderAdapter.setItems(featured.list as List<BaseList>)
 
